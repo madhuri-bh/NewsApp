@@ -27,22 +27,13 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <fragment
-            class="com.example.newsapp.TechnologyFragment"
-            android:id="@+id/fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity = "start"
-            android:orientation="vertical"
-            />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:headerLayout="@layout/navigation_drawer"
         app:menu="@menu/drawer_menu" />

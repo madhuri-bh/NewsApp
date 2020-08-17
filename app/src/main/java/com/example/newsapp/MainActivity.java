@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,6 +19,9 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -32,14 +39,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_navigation_drawer, R.string.close_navigation_drawer);
         drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
 
-        if(savedInstanceState == null) {
+        //default fragment
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, new TechnologyFragment()).commit();
+
+        /*if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new TechnologyFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_technology);
-        }
+        }*/
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        toggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -54,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //String url = "";
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             case R.id.nav_technology:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new TechnologyFragment()).commit();
@@ -62,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_science:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new TechnologyFragment()).commit();
+                        .replace(R.id.fragment_container, new ScienceFragment()).commit();
                 Toast.makeText(this, "Science", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_business:
@@ -78,17 +97,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-        /*if (item.getItemId() == R.id.nav_technology) {
-            url = "https://newsapi.org/v2/top-headlines?category=technology&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
+    }*/
+        if (item.getItemId() == R.id.nav_technology) {
+            //url = "https://newsapi.org/v2/top-headlines?category=technology&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new TechnologyFragment()).commit();
             Toast.makeText(this, "Technology", Toast.LENGTH_SHORT).show();
-        } else if (item.getItemId() == R.id.nav_business) {
-            url = "https://newsapi.org/v2/top-headlines?category=business&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
+        } else  if(item.getItemId() == R.id.nav_business) {
+            //url = "https://newsapi.org/v2/top-headlines?category=business&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new TechnologyFragment()).commit();
-        } else if (item.getItemId() == R.id.nav_health) {
+                    .replace(R.id.fragment_container, new ScienceFragment()).commit();
+        }
+        /*} else if (item.getItemId() == R.id.nav_health) {
             url = "https://newsapi.org/v2/top-headlines?category=health&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new TechnologyFragment()).commit();
@@ -108,8 +128,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
 return true;
     }*/
+        drawerLayout.closeDrawer(GravityCompat.START);
+return true;
+        }
 
-}
+    }
 
 
 
