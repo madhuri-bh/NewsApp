@@ -2,16 +2,20 @@ package com.example.newsapp;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.newsapp.adapter.NewsFragmentPagerAdapter;
 import com.example.newsapp.ui.BusinessFragment;
 import com.example.newsapp.ui.EntertainmentFragment;
 import com.example.newsapp.ui.GeneralFragment;
@@ -19,13 +23,16 @@ import com.example.newsapp.ui.HealthFragment;
 import com.example.newsapp.ui.ScienceFragment;
 import com.example.newsapp.ui.SportsFragment;
 import com.example.newsapp.ui.TechnologyFragment;
+import com.example.newsapp.utils.Constants;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
-public class NavigationMainActivity extends AppCompatActivity {
+public class NavigationMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle toggle;
+ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,87 +43,109 @@ public class NavigationMainActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        toggle = setupDrawerToggle();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_navigation_drawer, R.string.close_navigation_drawer);
+        drawerLayout.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
 
-        drawerLayout.addDrawerListener(toggle);
+        viewPager = findViewById(R.id.viewpager);
+
+        TabLayout tabLayout = findViewById(R.id.sliding_tab);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        setupDrawerContent(navigationView);
+        assert navigationView != null;
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Set the default fragment when starting the app
+        onNavigationItemSelected(navigationView.getMenu().getItem(0).setChecked(true));
+
+        NewsFragmentPagerAdapter newsFragmentPagerAdapter =
+                new NewsFragmentPagerAdapter(this, getSupportFragmentManager());
+        viewPager.setAdapter(newsFragmentPagerAdapter);
     }
 
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_navigation_drawer, R.string.close_navigation_drawer);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    /*private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         selectDrawerItem(menuItem);
                         return true;
                     }
                 });
-    }
+    }*/
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
+        int id = menuItem.getItemId();
+        //Fragment fragment = null;
 
-        switch (menuItem.getItemId()) {
+        switch (id) {
             case R.id.nav_technology:
-                fragment = new TechnologyFragment();
+                viewPager.setCurrentItem(Constants.TECHNOLOGY);
                 break;
             case R.id.nav_science:
-                fragment = new ScienceFragment();
+                viewPager.setCurrentItem(Constants.SCIENCE);
                 break;
             case R.id.nav_business:
-                fragment = new BusinessFragment();
+                viewPager.setCurrentItem(Constants.BUSINESS);
                 break;
             case R.id.nav_health:
-                fragment = new HealthFragment();
+                viewPager.setCurrentItem(Constants.HEALTH);
                 break;
             case R.id.nav_entertainment:
-                fragment = new EntertainmentFragment();
+                viewPager.setCurrentItem(Constants.ENTERTAINMENT);
                 break;
             case R.id.nav_general:
-                fragment = new GeneralFragment();
+                viewPager.setCurrentItem(Constants.GENERAL);
                 break;
             case R.id.nav_sports:
-                fragment = new SportsFragment();
+                viewPager.setCurrentItem(Constants.SPORTS);
                 break;
         }
 
         // Insert the fragment by replacing any existing fragment
-        if (fragment != null) {
+        /*if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-        }
-
+        }*/
+        drawerLayout = findViewById(R.id.drawer_layout);
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
         // Set action bar title
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
-        drawerLayout.closeDrawers();
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.drawer_menu, menu);
+        return true;
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
+
+    /*@Override
+    protected void onPostCreate(@NonNull Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         toggle.syncState();
-    }
+    }*/
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -125,4 +154,5 @@ public class NavigationMainActivity extends AppCompatActivity {
     }
 
 }
+
 

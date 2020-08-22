@@ -16,4 +16,13 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
+    <string name="title_technology">Technology</string>
+    <string name="title_science">Science</string>
+    <string name="title_business">Business</string>
+    <string name="title_health">Health</string>
+    <string name="title_entertainment">Entertainment</string>
+    <string name="title_general">General</string>
+    <string name="title_sports">Sports</string>
+
+
 </resources>

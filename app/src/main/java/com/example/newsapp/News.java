@@ -2,33 +2,33 @@ package com.example.newsapp;
 
 public class News {
 
-    private String author;
+    private String source;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
-    private String PublishedAt;
-    private String Content;
+    private String publishedAt;
+    private String content;
 
     public News() {
     }
 
-    public News(String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
-        this.author = author;
+    public News(String source, String title, String description, String url, String urlToImage, String publishedAt, String content) {
+        this.source = source;
         this.title = title;
         this.description = description;
         this.url = url;
         this.urlToImage = urlToImage;
-        PublishedAt = publishedAt;
-        Content = content;
+        this.publishedAt = publishedAt;
+        this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getSource() {
+        return source;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getTitle() {
@@ -64,18 +64,18 @@ public class News {
     }
 
     public String getPublishedAt() {
-        return PublishedAt;
+        return publishedAt;
     }
 
     public void setPublishedAt(String publishedAt) {
-        PublishedAt = publishedAt;
+        publishedAt = publishedAt;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        content = content;
     }
 }
