@@ -2,7 +2,6 @@ package com.example.newsapp;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -11,26 +10,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.newsapp.adapter.NewsFragmentPagerAdapter;
-import com.example.newsapp.ui.BusinessFragment;
-import com.example.newsapp.ui.EntertainmentFragment;
-import com.example.newsapp.ui.GeneralFragment;
-import com.example.newsapp.ui.HealthFragment;
-import com.example.newsapp.ui.ScienceFragment;
-import com.example.newsapp.ui.SportsFragment;
-import com.example.newsapp.ui.TechnologyFragment;
 import com.example.newsapp.utils.Constants;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-public class NavigationMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class NavigationMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
-ActionBarDrawerToggle toggle;
+    ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
     private ViewPager viewPager;
 
@@ -65,20 +61,18 @@ ActionBarDrawerToggle toggle;
         NewsFragmentPagerAdapter newsFragmentPagerAdapter =
                 new NewsFragmentPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(newsFragmentPagerAdapter);
+
     }
 
-
-
-    /*private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
-    }*/
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
@@ -109,11 +103,6 @@ ActionBarDrawerToggle toggle;
                 break;
         }
 
-        // Insert the fragment by replacing any existing fragment
-        /*if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-        }*/
         drawerLayout = findViewById(R.id.drawer_layout);
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -123,7 +112,6 @@ ActionBarDrawerToggle toggle;
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,13 +126,6 @@ ActionBarDrawerToggle toggle;
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }*/
-
-    /*@Override
-    protected void onPostCreate(@NonNull Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        toggle.syncState();
     }*/
 
     @Override
