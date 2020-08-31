@@ -1,11 +1,14 @@
 package com.example.newsapp.ui;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,11 +41,24 @@ public class BaseNewsFragment extends Fragment implements LoaderManager.LoaderCa
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(layoutManager);
+            swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
+                    initiateRefresh();
+                    Toast.makeText(getActivity(), "Refreshed",Toast.LENGTH_SHORT).show();
+                }
+            });
             return view;
         }
+
+
     @NonNull
     @Override
     public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
+        Uri.Builder builder = new
         return null;
     }
 
@@ -54,5 +70,13 @@ public class BaseNewsFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoaderReset(@NonNull Loader<List<News>> loader) {
 
+    }
+
+    private void restartLoader(boolean isConnected) {
+
+    }
+
+    private void initiateRefresh() {
+            restartLoader(isConnected);
     }
 }
