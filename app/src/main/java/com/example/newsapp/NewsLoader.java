@@ -13,7 +13,7 @@ import java.util.List;
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
 private static final String LOG_TAG = NewsLoader.class.getName();
-private String url;
+public String url;
 
     public NewsLoader(@NonNull Context context, String url) {
         super(context);

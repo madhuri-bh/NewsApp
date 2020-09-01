@@ -8,25 +8,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.loader.content.Loader;
 
+import com.example.newsapp.News;
+import com.example.newsapp.NewsLoader;
 import com.example.newsapp.R;
 
+import java.util.List;
 
-public class TechnologyFragment extends Fragment {
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.technology_fragment, container, false);
-        final TextView sourceTv = rootView.findViewById(R.id.text_source);
-        final TextView titleTv = rootView.findViewById(R.id.text_title);
-        final TextView descriptionTv = rootView.findViewById(R.id.text_description);
-        final TextView urlTv = rootView.findViewById(R.id.text_url);
-        final ImageView urlToImage = rootView.findViewById(R.id.text_url_to_image);
-        final TextView publishedAtTv = rootView.findViewById(R.id.text_published);
-        final TextView contentTv = rootView.findViewById(R.id.text_content);
-        return rootView;
+public class TechnologyFragment extends BaseNewsFragment {
 
+    private static final String LOG_TAG = BusinessFragment.class.getSimpleName();
+    private final String technologyUrl = "https://newsapi.org/v2/top-headlines?category=technology&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
+
+    @NonNull
+    @Override
+    public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
+
+        return new NewsLoader(getActivity(), technologyUrl);
     }
 
 }

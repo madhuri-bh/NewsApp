@@ -7,17 +7,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.loader.content.Loader;
 
+import com.example.newsapp.News;
+import com.example.newsapp.NewsLoader;
 import com.example.newsapp.R;
 
-public class HealthFragment extends Fragment {
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+import java.util.List;
 
-        View rootView = inflater.inflate(R.layout.health_fragment, container, false);
-        final TextView textView = rootView.findViewById(R.id.text_health);
+public class HealthFragment extends BaseNewsFragment {
+    private static final String LOG_TAG = BusinessFragment.class.getSimpleName();
+    private final String healthUrl = "https://newsapi.org/v2/top-headlines?category=health&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
 
-        return rootView;
+
+    @NonNull
+    @Override
+    public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
+
+        return new NewsLoader(getActivity(), healthUrl);
     }
 }

@@ -32,8 +32,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view,parent,false);
-        ViewHolder viewHolder = new ViewHolder(rootView) ;
+        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view, parent, false);
+        ViewHolder viewHolder = new ViewHolder(rootView);
         return viewHolder;
     }
 
@@ -53,13 +53,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
 
-
     @Override
     public int getItemCount() {
         return newsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView sourceTv;
         private TextView titleTv;
         private TextView descriptionTv;
@@ -80,16 +79,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         }
     }
 
-    private String formatDate(String date){
+    private String formatDate(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-Date dateObject = null;
-try {
-dateObject = dateFormat.parse(date);
-} catch (ParseException e) {
-    e.printStackTrace();
-}
+        Date dateObject = null;
+        try {
+            dateObject = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return dateObject.toString();
     }
 
-    //public void clearAll()
+    public void clearAll() {
+        newsList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<News> newsList) {
+        newsList.clear();
+        newsList.addAll(newsList);
+        notifyDataSetChanged();
+    }
 }

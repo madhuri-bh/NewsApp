@@ -8,7 +8,7 @@ public class Constants {
     static final int CONNECT_TIMEOUT = 15000; /*Milliseconds*/
     public static final int RESPONSE_CODE = 200;
     public static final String REQUEST_METHOD = "GET";
-    public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/search";
+    public static final String NEWS_REQUEST_URL = "https://newsapi.org/v2/top-headlines?category=technology&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
 
 public static final int TECHNOLOGY = 0;
 public static final int SCIENCE = 1;

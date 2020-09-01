@@ -11,17 +11,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.newsapp.adapter.NewsFragmentPagerAdapter;
 import com.example.newsapp.utils.Constants;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NavigationMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

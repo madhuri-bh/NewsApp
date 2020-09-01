@@ -1,18 +1,21 @@
 package com.example.newsapp.ui;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import com.example.newsapp.R;
+import androidx.annotation.Nullable;
+import androidx.loader.content.Loader;
+import com.example.newsapp.News;
+import com.example.newsapp.NewsLoader;
+import java.util.List;
 
-public class EntertainmentFragment extends Fragment {
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.entertainment_fragment, container, false);
-        final TextView textView = root.findViewById(R.id.text_entertainment);
-        return root;
+public class EntertainmentFragment extends BaseNewsFragment {
+    private static final String LOG_TAG = BusinessFragment.class.getSimpleName();
+    private final String entertainmentUrl = "https://newsapi.org/v2/top-headlines?category=entertainment&apiKey=aaab4be3710e4ee5beebc7664ac7fb4f";
+
+
+    @NonNull
+    @Override
+    public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
+
+        return new NewsLoader(getActivity(), entertainmentUrl);
     }
 }
