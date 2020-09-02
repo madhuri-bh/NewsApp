@@ -72,7 +72,7 @@ public class BaseNewsFragment extends Fragment implements LoaderManager.LoaderCa
     @NonNull
     @Override
     public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new NewsLoader(getActivity(), Constants.NEWS_REQUEST_URL);
+        return new NewsLoader(this.getActivity(), Constants.NEWS_REQUEST_URL);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class BaseNewsFragment extends Fragment implements LoaderManager.LoaderCa
         if (newsData != null && !newsData.isEmpty()) {
             newsAdapter.addAll(newsData);
         }
-        swipeRefreshLayout.setRefreshing(false);
+        //swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

@@ -95,6 +95,7 @@ public class QueryUtils {
             String line = reader.readLine();
             while (line != null) {
                 output.append(line);
+                line = reader.readLine();
             }
         }
         return output.toString();
