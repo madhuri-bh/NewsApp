@@ -105,10 +105,11 @@ public class QueryUtils {
         if (TextUtils.isEmpty(newsJson))
             return null;
         List<News> newsList = new ArrayList<>();
-        try{
+        try {
             JSONObject root = new JSONObject(newsJson);
             JSONArray articlesArray = root.getJSONArray("articles");
-            for(int i=0; i < articlesArray.length(); i++) {
+
+            for (int i = 0; i < articlesArray.length(); i++) {
                 JSONObject newsObject = articlesArray.getJSONObject(i);
 
                 String title = newsObject.getString("title");
@@ -118,15 +119,15 @@ public class QueryUtils {
                 String publishedAt = newsObject.getString("publishedAt");
                 String content = newsObject.getString("content");
 
-                JSONObject sourceObject = articlesArray.getJSONObject(i);
+                JSONObject sourceObject = newsObject.getJSONObject("source");
                 String source = sourceObject.getString("name");
 
             }
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG,"Problem parsing the news JSON results",e);
+            Log.e(LOG_TAG, "Problem parsing the news JSON results", e);
         }
-return newsList;
+        return newsList;
     }
 
 }
