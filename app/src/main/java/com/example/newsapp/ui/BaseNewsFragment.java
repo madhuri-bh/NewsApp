@@ -83,7 +83,7 @@ public class BaseNewsFragment extends Fragment implements LoaderManager.LoaderCa
         if (newsData != null && !newsData.isEmpty()) {
             newsAdapter.addAll(newsData);
         }
-        //swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
